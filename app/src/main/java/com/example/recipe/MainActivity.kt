@@ -37,10 +37,18 @@ import androidx.compose.ui.unit.dp
 import com.example.recipe.data.DataProvider
 
 import com.example.recipe.ui.theme.RecipeTheme
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity(), CoroutineScope by MainScope() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        launch {
+            DataProvider.saveMealsToDatabase(applicationContext)
+        }
         setContent {
             RecipeTheme {
                 MyApp{
@@ -50,7 +58,9 @@ class MainActivity : ComponentActivity() {
 
                 }
             }
+
         }
+
     }
 @Suppress("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)

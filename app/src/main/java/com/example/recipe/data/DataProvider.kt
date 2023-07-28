@@ -191,7 +191,7 @@ object DataProvider {
 
         ),
         Recipe(
-            id = 5,
+            id = 8,
             title = "maandazi",
             type = "Breakfast",
             numberOfPeople = 5,
@@ -288,50 +288,28 @@ object DataProvider {
 
         )
     suspend fun saveMealsToDatabase(context: Context) {
-        val database = DatabaseProvider.getDatabase(context)
-        val RecipeDao = database.mealDao()
+        val database = Provider.getDatabase(context)
+        val recipeDao = database.recipeDao()
 
 
         withContext(Dispatchers.IO) {
 
-            RecipeDao.clearaAllRecipe()
+            recipeDao.clearAllRecipes()
             recipeList.forEach { Recipe->
                 val recipeEntity= RecipeEntity(
                     id = Recipe.id,
-                    name = Recipe.title,
+                    title = Recipe.title,
                     type =  Recipe.type,
                     numberOfPeople = Recipe.numberOfPeople,
+                    difficultyLevel = Recipe.difficultyLevel,
                     ingredients = Recipe.ingredients,
                     preparationSteps = Recipe.preparationSteps,
                     recipeImageId = Recipe.recipeImageId
                 )
-                RecipeDao.insertRecipes(RecipeEntity)
+                recipeDao.insertRecipes(recipeEntity)
 
-
-
-
-
-                )
             }
     }
     }
-    fun getMealsFromDatabase(context: Context): List<Recipe> {
-        val database = DatabaseProvider.getDatabase(context)
-        val RecipeDao = database.RecipeDao()
-        val mealEntities = RecipeDao.getAllRecipes()
-
-        return RecipeEntity.map{ RecipeEntity
-        Recipe(
-            id = Recipe.id,
-            title = Recipe.title,
-            type =  Recipe.type,
-            numberOfPeople = Recipe.numberOfPeople,
-            ingredients = Recipe.ingredients,
-            preparationSteps = Recipe.preparationSteps,
-            recipeImageId = Recipe.recipeImageId
-        )
-
-
-    }
 }
-}
+
