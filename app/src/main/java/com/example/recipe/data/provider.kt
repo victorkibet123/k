@@ -11,7 +11,7 @@ object DatabaseProvider {
             appDatabase = Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
-                "fufuurecipes.db"
+                "recipes.db"
             ).build()
         }
         return appDatabase as AppDatabase

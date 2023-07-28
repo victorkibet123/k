@@ -7,5 +7,12 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Entity::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
+    inner class Dao {
+        fun clearaAllRecipe() {
+            TODO("Not yet implemented")
+        }
+
+    }
+
     abstract fun mealDao(): Dao
 }
