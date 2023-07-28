@@ -1,10 +1,8 @@
 package com.example.recipe.data
 
 import android.content.Context
-import androidx.room.Dao
 import com.example.recipe.R
 import com.example.recipe.Recipe
-import com.example.recipe.RecipeListItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -289,10 +287,51 @@ object DataProvider {
 
 
         )
+    suspend fun saveMealsToDatabase(context: Context) {
+        val database = DatabaseProvider.getDatabase(context)
+        val RecipeDao = database.mealDao()
 
-    su
+
+        withContext(Dispatchers.IO) {
+
+            RecipeDao.clearaAllRecipe()
+            recipeList.forEach { Recipe->
+                val recipeEntity= RecipeEntity(
+                    id = Recipe.id,
+                    name = Recipe.title,
+                    type =  Recipe.type,
+                    numberOfPeople = Recipe.numberOfPeople,
+                    ingredients = Recipe.ingredients,
+                    preparationSteps = Recipe.preparationSteps,
+                    recipeImageId = Recipe.recipeImageId
+                )
+                RecipeDao.insertRecipes(RecipeEntity)
 
 
-        }
+
+
+
+                )
+            }
     }
+    }
+    fun getMealsFromDatabase(context: Context): List<Recipe> {
+        val database = DatabaseProvider.getDatabase(context)
+        val RecipeDao = database.RecipeDao()
+        val mealEntities = RecipeDao.getAllRecipes()
+
+        return RecipeEntity.map{ RecipeEntity
+        Recipe(
+            id = Recipe.id,
+            title = Recipe.title,
+            type =  Recipe.type,
+            numberOfPeople = Recipe.numberOfPeople,
+            ingredients = Recipe.ingredients,
+            preparationSteps = Recipe.preparationSteps,
+            recipeImageId = Recipe.recipeImageId
+        )
+
+
+    }
+}
 }
