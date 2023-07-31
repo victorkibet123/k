@@ -21,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -92,17 +93,20 @@ private fun Title(
     }
 }
 @Composable
-private fun ProfileProperty(Label:String,value: String){
-    Column(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp)) {
+private fun ProfileProperty(label:String,value: String){
+    Column(modifier = Modifier.padding(16.dp)) {
+        Divider(modifier = Modifier.padding(start = 16.dp, end = 16.dp, bottom = 16.dp))
         Text(
-            text = Label,
+            text = label,
             modifier = Modifier.height(24.dp),
-            style = MaterialTheme.typography.headlineSmall
+            style = MaterialTheme.typography.headlineSmall,
+            overflow = TextOverflow.Visible
         )
         Text(
             text =value,
-            modifier = Modifier.height(24.dp),
-            style = MaterialTheme.typography.bodyMedium
+            modifier = Modifier.height(200.dp),
+            style = MaterialTheme.typography.bodySmall,
+            overflow = TextOverflow.Visible
         )
 
         
